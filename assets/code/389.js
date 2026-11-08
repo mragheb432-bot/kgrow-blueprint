@@ -1,0 +1,1 @@
+KG_CODE("f:vendor/kgraph-2.2/kgraph/scripts/kgraph.py","#!/usr/bin/env python3\n\"\"\"kgraph entry point: python kgraph.py <command> ...  (Python 3.8+, standard library only).\"\"\"\nimport os\nimport sys\n\nsys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))\n\nfrom kg.cli import main  # noqa: E402\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n");

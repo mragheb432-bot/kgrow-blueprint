@@ -1,0 +1,1 @@
+KG_CODE("f:tests/fixtures/popup.html","<!doctype html><html><head><meta charset=\"utf-8\"><title>Popup Probe</title></head><body>\n<button id=\"b\" onclick=\"window.open('https://example.com/target?id=42','_blank')\">Open report</button>\n</body></html>\n");

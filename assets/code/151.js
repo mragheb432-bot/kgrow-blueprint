@@ -1,0 +1,1 @@
+KG_CODE("f:native/driver/autoskill-driver-win/Cargo.toml","[package]\nname = \"autoskill-driver-win\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\nautoskill-driver-core = { path = \"../autoskill-driver-core\" }\nserde_json = \"1\"\n\n[[bin]]\nname = \"autoskill-driver-legacy\"\npath = \"src/main.rs\"\n");

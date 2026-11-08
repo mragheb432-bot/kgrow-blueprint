@@ -1,0 +1,1 @@
+KG_CODE("f:tests/fixtures/inner.html","<!doctype html><html><head><meta charset=\"utf-8\"><title>Inner</title></head><body>\n<h2>Payment frame</h2>\n<label for=\"card\">Card number</label><input id=\"card\" type=\"text\">\n<button id=\"pay\">Pay now</button>\n</body></html>\n");

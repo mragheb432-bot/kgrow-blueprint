@@ -1,0 +1,1 @@
+KG_CODE("f:extension/com.autoskill.bridge.json","{\n  \"name\": \"com.autoskill.bridge\",\n  \"description\": \"autoskill bridge to the local automation agent\",\n  \"path\": \"nmhost-launch.cmd\",\n  \"type\": \"stdio\",\n  \"allowed_origins\": [\n    \"chrome-extension://adehlmmcdjfgijjnpfphjifeigceenph/\"\n  ]\n}");

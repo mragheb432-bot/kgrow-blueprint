@@ -1,0 +1,1 @@
+KG_CODE("f:vendor/kgraph-2.2/kgraph/scripts/kg/__init__.py","\"\"\"kgraph - portable knowledge-graph builder (Python standard library only).\"\"\"\n__version__ = \"2.2.0\"\nEXTRACTOR_VERSION = \"23\"\n");

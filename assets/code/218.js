@@ -1,0 +1,1 @@
+KG_CODE("f:tests/fixtures/outer.html","<!doctype html><html><head><meta charset=\"utf-8\"><title>Outer With Iframe</title></head><body>\n<h1>Checkout</h1>\n<button id=\"top\">Top level button</button>\n<iframe src=\"inner.html\" width=\"400\" height=\"200\" style=\"border:1px solid #000\"></iframe>\n</body></html>\n");

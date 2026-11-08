@@ -1,0 +1,1 @@
+KG_CODE("f:extension/nmhost-launch.cmd","@echo off\n@chcp 65001 >nul 2>nul\nsetlocal DisableDelayedExpansion\nrem Every path is relative to this file, so the project folder can move (relocation.py).\nset \"AUTOSKILL_HOME=%USERPROFILE%\\.autoskill\"\nset \"PYTHONPATH=%~dp0..\\src\"\n\"%~dp0..\\.venv\\Scripts\\python.exe\" -m autoskill.nmhost\n");

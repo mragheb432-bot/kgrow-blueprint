@@ -1,0 +1,1 @@
+KG_CODE("f:native/driver/autoskill-driver-linux/src/lib.rs","//! Linux adapter boundary. SDK records remain unmodified until X11 acceptance.\npub fn enrich_windows(_result: &mut serde_json::Value) {}\n");

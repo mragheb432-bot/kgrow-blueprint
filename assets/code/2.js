@@ -1,0 +1,1 @@
+KG_CODE("f:bin/auto.cmd","@echo off\nsetlocal EnableExtensions\nset \"ROOT=%~dp0..\"\nset \"PYTHONPATH=%ROOT%\\src;%PYTHONPATH%\"\n\"%ROOT%\\.venv\\Scripts\\python.exe\" -m autoskill %*\nexit /b %ERRORLEVEL%\n");

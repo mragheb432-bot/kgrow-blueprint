@@ -1,0 +1,1 @@
+KG_CODE("f:native/driver/autoskill-driver-core/Cargo.toml","[package]\nname = \"autoskill-driver-core\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[dependencies]\nserde = { version = \"1\", features = [\"derive\"] }\nserde_json = \"1\"\n\n[lib]\npath = \"src/lib.rs\"\n");

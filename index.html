@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kgrow.io Blueprint</title>
+<meta name="description" content="An interactive blueprint of the Kgrow.io automation tool: every part, every file, every tool and how they connect.">
+<link rel="icon" href="assets/kgrow.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<!-- Shared SVG defs: brand gradient and glow filters -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============================== INTRO ============================== -->
+<section id="intro" class="screen is-active" aria-label="Introduction">
+  <div class="persp" aria-hidden="true"><div class="persp-plane"></div></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="corner-tools">
+    <button class="icon-btn" data-action="lang" aria-label="Switch language"><span data-icon="lang"></span><b class="lang-code"></b></button>
+    <button class="icon-btn" data-action="theme" aria-label="Switch theme"><span data-icon="moon" class="theme-ico"></span></button>
+  </div>
+
+  <div class="intro-stage">
+    <div class="intro-logo-wrap">
+      <svg id="introLogo" class="logo-svg" viewBox="-152 -50 560 356" aria-hidden="true">
+        <g id="draftLines"></g>
+        <rect class="logo-tile" x="0" y="0" width="256" height="256" rx="58"/>
+        <path id="loopTrack" class="loop-track" d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z"/>
+        <path id="loopPath" class="loop-path" d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z"/>
+        <g id="stations"></g>
+        <g id="loopDot" class="loop-dot">
+          <circle r="19" class="dot-ring"/><circle r="7" class="dot-core"/>
+        </g>
+      </svg>
+    </div>
+    <h1 class="wordmark" id="wordmark" aria-label="Kgrow.io"></h1>
+    <p class="tagline" id="tagline"></p>
+    <ul class="intro-stats" id="introStats"></ul>
+    <button class="cta" id="enterBtn"><span class="beam" aria-hidden="true"></span><span data-icon="lock"></span><span data-t="enter"></span></button>
+    <p class="intro-hint" data-t="enterHint"></p>
+  </div>
+</section>
+
+<!-- ============================ PASSWORD ============================= -->
+<div class="modal-backdrop" id="pwModal" hidden>
+  <form class="pw-card glass" id="pwForm" autocomplete="off" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
+    <span class="beam" aria-hidden="true"></span>
+    <div class="pw-lock" aria-hidden="true"><span data-icon="lock"></span></div>
+    <h2 id="pwTitle" data-t="pwTitle"></h2>
+    <p class="pw-sub" data-t="pwSub"></p>
+    <label class="field">
+      <span class="field-label" data-t="pwLabel"></span>
+      <span class="field-row">
+        <input id="pwInput" type="password" spellcheck="false" autocomplete="current-password">
+        <button type="button" class="icon-btn ghost" id="pwEye" aria-label="Show password"><span data-icon="eye"></span></button>
+      </span>
+    </label>
+    <p class="pw-error" id="pwError" role="alert" aria-live="assertive"></p>
+    <div class="pw-actions">
+      <button type="button" class="btn ghost" id="pwCancel" data-t="cancel"></button>
+      <button type="submit" class="btn primary" id="pwSubmit"><span data-icon="arrow"></span><span data-t="unlock"></span></button>
+    </div>
+  </form>
+</div>
+
+<!-- =============================== APP =============================== -->
+<section id="app" class="screen" aria-label="Blueprint map">
+  <header class="topbar glass">
+    <div class="brand" id="brandMark">
+      <svg class="brand-logo" viewBox="0 0 256 256" aria-hidden="true">
+        <rect x="0" y="0" width="256" height="256" rx="58" class="logo-tile"/>
+        <path d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z" class="loop-static"/>
+        <circle cx="150" cy="74" r="19" class="dot-ring"/><circle cx="150" cy="74" r="7" class="dot-core"/>
+      </svg>
+      <div class="brand-text"><b>Kgrow.io</b><small data-t="brandSub"></small></div>
+    </div>
+
+    <div class="search" role="search">
+      <span data-icon="search" class="search-ico"></span>
+      <input id="searchInput" type="search" autocomplete="off" spellcheck="false" aria-controls="searchResults">
+      <kbd class="kbd">/</kbd>
+      <button class="icon-btn ghost" id="searchClear" aria-label="Clear search and selection" hidden><span data-icon="x"></span></button>
+      <div class="search-results glass" id="searchResults" role="listbox" hidden></div>
+    </div>
+
+    <nav class="top-actions">
+      <button class="btn chip" data-action="expandAll"><span data-icon="expand"></span><span data-t="expandAll"></span></button>
+      <button class="btn chip" data-action="collapseAll"><span data-icon="collapse"></span><span data-t="collapseAll"></span></button>
+      <button class="btn chip accent" data-action="flows"><span data-icon="route"></span><span data-t="flows"></span></button>
+      <button class="btn chip" data-action="guide"><span data-icon="book"></span><span data-t="guide"></span></button>
+      <button class="btn chip accent2" data-action="tour"><span data-icon="monitor"></span><span data-t="tour"></span></button>
+      <button class="btn chip" data-action="mcp"><span data-icon="plug"></span><span data-t="mcp"></span></button>
+      <button class="btn chip" data-action="settings"><span data-icon="settings"></span><span data-t="settings"></span></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="icon-btn" data-action="lang" aria-label="Switch language"><span data-icon="lang"></span><b class="lang-code"></b></button>
+      <button class="icon-btn" data-action="theme" aria-label="Switch theme"><span data-icon="moon" class="theme-ico"></span></button>
+      <button class="btn chip danger" data-action="close"><span data-icon="x"></span><span data-t="closeTour"></span></button>
+    </nav>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="viewport" id="viewport">
+      <svg class="edges lanes-svg" aria-hidden="true"><g id="edgeLanes"></g></svg>
+      <svg class="edges" id="edges" aria-hidden="true"><g id="edgeCross"></g><g id="edgeFlow"></g><g id="edgeTree"></g></svg>
+      <svg class="edges pulses" id="pulseSvg" aria-hidden="true"><g id="edgePulse"></g></svg>
+      <div class="nodes" id="nodes"></div>
+    </div>
+    <div class="blur-edge top" aria-hidden="true"></div>
+    <div class="blur-edge bottom" aria-hidden="true"></div>
+
+    <div class="hud-left glass" id="hud">
+      <button class="icon-btn" data-action="zoomIn" aria-label="Zoom in"><span data-icon="plus"></span></button>
+      <button class="icon-btn" data-action="zoomOut" aria-label="Zoom out"><span data-icon="minus"></span></button>
+      <button class="icon-btn" data-action="fit" aria-label="Fit the map"><span data-icon="fit"></span></button>
+      <span class="sep-v" aria-hidden="true"></span>
+      <button class="icon-btn" data-action="links" aria-pressed="false" aria-label="Show every link"><span data-icon="link"></span></button>
+    </div>
+
+    <div class="stage-tools glass" id="stageTools">
+      <div class="preset">
+        <button class="st-btn" id="presetBtn" aria-haspopup="listbox" aria-expanded="false"><span class="sw" aria-hidden="true"></span><b id="presetName"></b><span data-icon="chev"></span></button>
+        <div class="preset-menu glass" id="presetMenu" role="listbox" hidden></div>
+      </div>
+      <button class="st-btn" data-action="live" id="liveBtn" aria-pressed="true"><span class="live-dot" aria-hidden="true"></span><b id="liveName"></b></button>
+      <button class="st-btn icon" data-action="full" aria-label="Full screen"><span data-icon="expand"></span></button>
+    </div>
+    <div class="legend glass" id="legend"></div>
+    <div class="hint-pill glass" id="hintPill"></div>
+
+    <!-- flow player -->
+    <div class="player glass" id="player" hidden>
+      <div class="player-head">
+        <span class="player-ico" data-icon="route"></span>
+        <div class="player-title"><b id="playerTitle"></b><small id="playerCount"></small></div>
+        <div class="player-ctrl">
+          <button class="icon-btn" id="pPrev" aria-label="Previous step"><span data-icon="prev"></span></button>
+          <button class="icon-btn primary" id="pPlay" aria-label="Play or pause"><span data-icon="pause"></span></button>
+          <button class="icon-btn" id="pNext" aria-label="Next step"><span data-icon="next"></span></button>
+          <button class="icon-btn" id="pStop" aria-label="Stop the flow"><span data-icon="x"></span></button>
+        </div>
+      </div>
+      <div class="player-bar"><span id="playerProgress"></span></div>
+      <p class="player-caption" id="playerCaption" aria-live="polite"></p>
+    </div>
+  </main>
+
+  <!-- details window -->
+  <aside class="panel glass" id="panel" aria-live="polite" hidden>
+    <span class="beam" aria-hidden="true"></span>
+    <button class="icon-btn panel-close" id="panelClose" aria-label="Close"><span data-icon="x"></span></button>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+</section>
+
+<!-- flows picker -->
+<div class="modal-backdrop" id="flowsModal" hidden>
+  <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="flowsTitle">
+    <button class="icon-btn sheet-close" data-close aria-label="Close"><span data-icon="x"></span></button>
+    <h2 id="flowsTitle" data-t="flowsTitle"></h2>
+    <p class="sheet-sub" data-t="flowsSub"></p>
+    <div class="flow-cards" id="flowCards"></div>
+  </div>
+</div>
+
+<!-- guide -->
+<div class="modal-backdrop" id="guideModal" hidden>
+  <div class="sheet wide glass" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <button class="icon-btn sheet-close" data-close aria-label="Close"><span data-icon="x"></span></button>
+    <h2 id="guideTitle" data-t="guide"></h2>
+    <div class="tabs" role="tablist" id="guideTabs"></div>
+    <div class="tab-body" id="guideBody"></div>
+  </div>
+</div>
+
+<!-- MCP connect -->
+<div class="modal-backdrop" id="mcpModal" hidden>
+  <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="mcpTitle">
+    <button class="icon-btn sheet-close" data-close aria-label="Close"><span data-icon="x"></span></button>
+    <h2 id="mcpTitle" data-t="mcpTitle"></h2>
+    <div id="mcpBody"></div>
+  </div>
+</div>
+
+<!-- settings: open or protected, password, MCP switch (assets/settings.js) -->
+<div class="modal-backdrop" id="settingsModal" hidden>
+  <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <button class="icon-btn sheet-close" data-close aria-label="Close"><span data-icon="x"></span></button>
+    <h2 id="settingsTitle" data-t="settings"></h2>
+    <div id="settingsBody"></div>
+  </div>
+</div>
+
+<!-- reader: full documents and code -->
+<div class="modal-backdrop" id="readerModal" hidden>
+  <div class="sheet reader glass" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+    <button class="icon-btn sheet-close" data-close aria-label="Close"><span data-icon="x"></span></button>
+    <header class="reader-head"><div><h2 id="readerTitle"></h2><code id="readerPath"></code></div><div class="reader-tools" id="readerTools"></div></header>
+    <div class="reader-body"><nav class="reader-toc" id="readerToc"></nav><article class="reader-main" id="readerMain"></article></div>
+  </div>
+</div>
+
+<!-- the dashboard tour -->
+<section id="tour" class="screen" aria-label="Dashboard tour">
+  <header class="tour-top glass">
+    <button class="btn" id="tourBack"><span data-icon="back"></span><span data-t="back"></span></button>
+    <div class="tour-title"><b data-t="tourTitle"></b><small data-t="tourSub"></small></div>
+    <div class="tour-actions">
+      <button class="btn" id="tourAnim" aria-pressed="true"><span data-icon="pause"></span><span id="tourAnimLabel"></span></button>
+      <button class="icon-btn" id="tourReset" aria-label="Zoom out"><span data-icon="zoomout"></span></button>
+      <button class="icon-btn" data-action="lang" aria-label="Switch language"><span data-icon="lang"></span><b class="lang-code"></b></button>
+      <button class="icon-btn" data-action="theme" aria-label="Switch theme"><span data-icon="moon" class="theme-ico"></span></button>
+      <button class="btn danger" id="tourClose"><span data-icon="x"></span><span data-t="closeTour"></span></button>
+    </div>
+  </header>
+  <main class="tour-main">
+    <div class="tour-dash"><div class="dash-viewport" id="dashViewport"><div class="dash-zoom" id="dashZoom"><iframe id="dashFrame" title="Kgrow.io dashboard"></iframe></div></div></div>
+    <aside class="tour-explain" id="tourExplain" aria-live="polite"></aside>
+  </main>
+  <svg class="tour-line" id="tourLine" aria-hidden="true"></svg>
+</section>
+
+<div class="tip glass" id="tip" role="tooltip" hidden></div>
+<div class="toast glass" id="toast" role="status" hidden></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
