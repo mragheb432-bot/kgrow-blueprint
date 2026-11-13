@@ -1,6 +1,6 @@
-/* Kgrow.io Blueprint - dashboard tour. One half shows the real Kgrow.io dashboard (its own HTML, CSS and script,
-   in its built-in demo run); clicking any element zooms to it and a thin line leads to its explanation in the other
-   half. Loaded on first use. Data: KGBP.D.tour (build/content_tour.py). */
+/* Kgp Blueprint engine - live tour of the project's own interface. One half shows the project's real interface (its own HTML, CSS and script,
+   in a sample state); clicking any element zooms to it and a thin line leads to its explanation in the other
+   half. Loaded on first use. Data: KGBP.D.tour (kgp content "tour"). */
 (() => {
   "use strict";
   const K = window.KGBP, D = K.D;
@@ -9,15 +9,19 @@
   const tour = { ready: false, doc: null, win: null, cur: null, el: null, allow: false, paused: false, z: { s: 1, tx: 0, ty: 0 } };
 
   function strings() {
+    const own = ((K.D.ui || {})[K.state.lang] || {}).tour || {};   // the project's own tour words
+    return Object.assign(base(), own);
+  }
+  function base() {
     return K.state.lang === "ar"
-      ? { intro: "هذه لوحة تحكم Kgrow.io الحقيقية، تعمل بتشغيل تجريبي كأن سير عمل يجري الآن. انقر أي زر أو رقم أو جزء من الحلقة أو لوحة، فتقترب الصورة منه ويقودك خط رفيع إلى شرحه هنا.",
-          plain: "بكلمات بسيطة", what: "ماذا يحدث", tech: "تحت الغطاء (للمهتمين بالتفاصيل التقنية)", related: "مرتبط به على الخريطة", tryIt: "جرّبه في اللوحة",
-          all: "كل عناصر لوحة التحكم", hidden: "يظهر هذا العنصر في اللوحة فقط في حالته (مثلاً عند طلب موافقة أو عند الإيقاف المؤقت).", pause: "إيقاف الحركة", play: "تشغيل الحركة",
-          tried: "نُفّذ في اللوحة التجريبية", index: "الفهرس" }
-      : { intro: "This is the real Kgrow.io dashboard, running a sample run as if a workflow were going on now. Click any button, number, part of the loop or panel: the view zooms to it and a thin line leads you to its explanation here.",
-          plain: "In plain words", what: "What happens", tech: "Under the hood (for technical detail)", related: "Linked on the map", tryIt: "Try it on the dashboard",
-          all: "Every element of the dashboard", hidden: "This element shows on the dashboard only in its own state (for example when an approval is asked or while paused).", pause: "Pause the motion", play: "Play the motion",
-          tried: "Done on the sample dashboard", index: "Index" };
+      ? { intro: "هذه واجهة المشروع الحقيقية وهي تعمل. انقر أي زر أو رقم أو لوحة، فتقترب الصورة منه ويقودك خط رفيع إلى شرحه هنا.",
+          plain: "بكلمات بسيطة", what: "ماذا يحدث", tech: "تحت الغطاء (للمهتمين بالتفاصيل التقنية)", related: "مرتبط به على الخريطة", tryIt: "جرّبه في الواجهة",
+          all: "كل عناصر الواجهة", hidden: "يظهر هذا العنصر في الواجهة فقط في حالته الخاصة.", pause: "إيقاف الحركة", play: "تشغيل الحركة",
+          tried: "نُفّذ في الواجهة", index: "الفهرس" }
+      : { intro: "This is the project's real interface, running. Click any button, number or panel: the view zooms to it and a thin line leads you to its explanation here.",
+          plain: "In plain words", what: "What happens", tech: "Under the hood (for technical detail)", related: "Linked on the map", tryIt: "Try it in the interface",
+          all: "Every element of the interface", hidden: "This element shows in the interface only in its own state.", pause: "Pause the motion", play: "Play the motion",
+          tried: "Done in the interface", index: "Index" };
   }
   const L = (o) => (o ? (o[K.state.lang] ?? o.en) : "");
 
@@ -77,6 +81,9 @@
     const vp = $("#dashViewport"), W = vp.clientWidth, H = vp.clientHeight;
     if (!visible(tour.el)) { resetZoom(); clearLine(); return; }
     tour.el.classList.add("__tour-hl");
+    // an interface taller or wider than the frame: bring the element into the frame's view first
+    const v0 = tour.el.getBoundingClientRect();
+    if (v0.top < 0 || v0.left < 0 || v0.bottom > tour.win.innerHeight || v0.right > tour.win.innerWidth) tour.el.scrollIntoView({ block: "center", inline: "center", behavior: "instant" });
     const r = tour.el.getBoundingClientRect();
     const s = Math.max(1.3, Math.min(3.3, (W * .62) / Math.max(r.width, 1), (H * .5) / Math.max(r.height, 1)));
     let tx = W / 2 - (r.left + r.width / 2) * s, ty = H / 2 - (r.top + r.height / 2) * s;
@@ -131,7 +138,7 @@
       <h4>${esc(S.what)}</h4><ul class="tc-steps">${steps.map((x) => `<li>${K.rich(x, new Set())}</li>`).join("")}</ul>
       <details class="tc-tech"><summary>${esc(S.tech)}</summary><p>${K.rich(L(t.tech), new Set())}</p></details>
       ${rel ? `<h4>${esc(S.related)}</h4><div class="links">${rel}</div>` : ""}
-      ${shown && /^(#b-|#ap-|#rep-|#repeat)/.test(t.sel) ? `<div class="p-actions"><button class="btn primary" id="tourTry">${K.icon("pointer")}${esc(S.tryIt)}</button></div>` : ""}
+      ${shown && (t.try ?? /^(#b-|#ap-|#rep-|#repeat)/.test(t.sel)) ? `<div class="p-actions"><button class="btn primary" id="tourTry">${K.icon("pointer")}${esc(S.tryIt)}</button></div>` : ""}
     </article>` + indexHtml();
   }
   function indexHtml() {

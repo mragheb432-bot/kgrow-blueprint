@@ -2,17 +2,15 @@
 <html lang="ar" dir="rtl" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.github.com; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kgrow.io Blueprint</title>
 <meta name="description" content="An interactive blueprint of the Kgrow.io automation tool: every part, every file, every tool and how they connect.">
-<link rel="icon" href="assets/kgrow.png">
+<link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
 
@@ -20,7 +18,7 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/>
+      <stop offset="0" style="stop-color:var(--brand-a)"/><stop offset="1" style="stop-color:var(--brand-b)"/>
     </linearGradient>
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -43,6 +41,7 @@
       <svg id="introLogo" class="logo-svg" viewBox="-152 -50 560 356" aria-hidden="true">
         <g id="draftLines"></g>
         <rect class="logo-tile" x="0" y="0" width="256" height="256" rx="58"/>
+        <g id="logoArt" class="logo-art"></g>
         <path id="loopTrack" class="loop-track" d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z"/>
         <path id="loopPath" class="loop-path" d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z"/>
         <g id="stations"></g>
@@ -85,11 +84,7 @@
 <section id="app" class="screen" aria-label="Blueprint map">
   <header class="topbar glass">
     <div class="brand" id="brandMark">
-      <svg class="brand-logo" viewBox="0 0 256 256" aria-hidden="true">
-        <rect x="0" y="0" width="256" height="256" rx="58" class="logo-tile"/>
-        <path d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z" class="loop-static"/>
-        <circle cx="150" cy="74" r="19" class="dot-ring"/><circle cx="150" cy="74" r="7" class="dot-core"/>
-      </svg>
+      <svg class="brand-logo" viewBox="0 0 256 256" aria-hidden="true"><rect width="256" height="256" rx="58" class="logo-tile"/><path d="M150 74 H158 A54 54 0 0 1 158 182 H98 A54 54 0 0 1 98 74 Z" class="loop-static"/><circle cx="150" cy="74" r="19" class="dot-ring"/><circle cx="150" cy="74" r="7" class="dot-core"/></svg>
       <div class="brand-text"><b>Kgrow.io</b><small data-t="brandSub"></small></div>
     </div>
 
@@ -232,7 +227,7 @@
     </div>
   </header>
   <main class="tour-main">
-    <div class="tour-dash"><div class="dash-viewport" id="dashViewport"><div class="dash-zoom" id="dashZoom"><iframe id="dashFrame" title="Kgrow.io dashboard"></iframe></div></div></div>
+    <div class="tour-dash"><div class="dash-viewport" id="dashViewport"><div class="dash-zoom" id="dashZoom"><iframe id="dashFrame" title="Live interface"></iframe></div></div></div>
     <aside class="tour-explain" id="tourExplain" aria-live="polite"></aside>
   </main>
   <svg class="tour-line" id="tourLine" aria-hidden="true"></svg>

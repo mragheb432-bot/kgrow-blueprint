@@ -1,4 +1,4 @@
-/* Kgrow.io Blueprint - reader: any project file in full. Markdown is rendered (headings, lists, tables, quotes,
+/* Kgp Blueprint engine - reader: any project file in full. Markdown is rendered (headings, lists, tables, quotes,
    code blocks, links); every other file is shown as code with line numbers. Loaded on first use. */
 (() => {
   "use strict";
